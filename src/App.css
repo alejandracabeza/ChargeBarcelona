@@ -29,3 +29,13 @@ code {
   width: 20px;
   height: 20px;
 }
+
+
+/*SIDEBAR*/
+
+.sidebar{
+  background-color: blue;
+  position: absolute;
+  height: 50vh;
+  width: 20vh;
+}

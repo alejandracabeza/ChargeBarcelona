@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Map from "./components/map";
+import Sidebar from "./components/sidebar";
 
 function App() {
   // let [latitude, setLatitude] = useState();
@@ -31,6 +32,7 @@ function App() {
   return (
     <div className="map">
       <Map />
+      <Sidebar />
     </div>
   );
 }
