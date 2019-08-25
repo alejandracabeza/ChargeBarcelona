@@ -1,11 +1,14 @@
-import React from "react";
+// import React from "react";
 
-function Sidebar() {
-  return (
-    <div className="sidebar">
 
-    </div>
-  );
-}
 
-export default Sidebar;
+// function Sidebar({ markers, search }, props) {
+
+
+
+//   return (
+
+//   );
+// }
+
+// export default Sidebar;

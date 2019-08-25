@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./../App.css";
 import ReactMapGL, { Marker } from "react-map-gl";
 
 
-function Map() {
-  let [markers, setMarkers] = useState([]);
+function Map({ markers, search }, props) {
+
   const [viewport, setViewport] = useState({
     longitude: 2.154007,
     latitude: 41.390205,
@@ -12,24 +12,6 @@ function Map() {
     height: "100vh",
     width: "100vw"
   });
-
-  async function fetchJSON() {
-    try {
-      const response = await fetch(
-        "https://api.bsmsa.eu/ext/api/bsm/chargepoints/v1/chargepoints"
-      );
-      const json = await response.json();
-      const temp = json.result.chargepoint;
-      setMarkers(temp);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  // console.log(marker);
-
-  useEffect(() => {
-    fetchJSON();
-  }, []);
 
   return (
     <div>
@@ -42,11 +24,16 @@ function Map() {
           setViewport(viewport);
         }}
       >
-        {markers.map(marker => (
-          <Marker latitude={marker.Lat} longitude={marker.Lng}>
-            <div style={{ width: 10, height: 10, backgroundColor: "red" }} />
-          </Marker>
-        ))}
+        {markers.map((marker) => {
+          let name = marker.ParkingName.toLowerCase()
+          if (name.includes(search)) {
+            return <Marker latitude={marker.Lat} longitude={marker.Lng}>
+              <div style={{ width: 10, height: 10, backgroundColor: "red" }} />
+            </Marker>
+          }
+        })
+        }
+
       </ReactMapGL>
     </div>
   );
