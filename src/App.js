@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Map from "./components/map";
-import Sidebar from "./components/sidebar"
-
 
 
 function App() {
   let [markers, setMarkers] = useState([]);
   let [search, setSearch] = useState("");
-  let [hide, setHide] = useState(true)
+  let [hide, setHide] = useState(false);
+  let [selectedMarker, setSelectedMarker] = useState(null);
+
 
 
   async function fetchJSON() {
@@ -18,7 +18,11 @@ function App() {
       );
       const json = await response.json();
       const temp = json.result.chargepoint;
-      setMarkers(temp);
+      var outputArray = {};
+
+      outputArray = Array.from(new Set(temp))
+      return setMarkers(outputArray);
+
     } catch (err) {
       console.log(err);
     }
@@ -39,15 +43,24 @@ function App() {
 
   return (
     <div className="map">
-      <div className="toggle" onClick={handleHide}>X</div>
-      {hide && <div className="sidebar">
-        <input value={search}
-          onChange={e => handleSearch(e)}
-          placeholder="Search Charging station" />
-      </div>}
-      <Map markers={markers} search={search} />
 
-    </div>
+      <div onClick={handleHide} className="wordSearch" >Search...<span className="search" ></span></div>
+      {hide && <div className="sidebar scrollable">
+        <div className="input-search"><input value={search}
+          onChange={e => handleSearch(e)}
+          placeholder="Search Charging Station..." />
+        </div>
+        {markers.map(function (marker, index) {
+          if (marker.ParkingName.toLowerCase().includes(search)) {
+            return <div key={index} >{marker.ParkingName}</div>
+          }
+
+        })}
+      </div>
+      }
+      <Map markers={markers} search={search} selectedMarker={selectedMarker} setSelectedMarker={setSelectedMarker} />
+
+    </div >
   );
 }
 

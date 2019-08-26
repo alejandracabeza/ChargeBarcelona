@@ -20,6 +20,12 @@ body {
   cursor: pointer;
 }
 
+.eachMarker{
+  background-image: url("./components/assets/marker.png");
+  height:30px;
+  width:30px;
+}
+
 .marker-btn img {
   width: 20px;
   height: 20px;
@@ -29,24 +35,62 @@ body {
 /*SIDEBAR*/
 
 .sidebar {
-  height:40vh;
+  height:80vh;
   width: 34vh;
     margin-top: 100px;
     margin-left: 60px;
     display: block;
-    background-color: rgb(230, 230, 230);
+    background-color: #737373;
     position: absolute;
     z-index: 1;
-  
+  border-radius: 5px;
+
 }
 
-.toggle{
-      margin-top: 60px;
-      margin-left: 60px;
-      display: block;
-      color: aliceblue;
-      font-size: 2em;
+h4{
+  margin: 1vh;
+}
+
+input{
+
+  margin: 2vh;
+  margin-top: 6vh;
+  border-radius: 5px; 
+  height: 5vh;
+  width: 28vh;
+}
+
+input:focus{
+  outline:none;
+}
+
+.search{
+      margin-left: 0;
+      display: inline;
       position: absolute;
       z-index: 2;
-    
+      background-image: url("./components/assets/search.png");
+      height: 50px;
+      width: 50px;
+}
+
+.wordSearch{
+  color: aliceblue;
+  margin-top: 7vh;
+  margin-left: 60px;
+  display: inline;
+  position: absolute;
+  z-index: 2;
+  font-size: 2em;
+}
+
+.scrollable{
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.input-search{
+position: fixed;
+background-color: #737373;
+height: 100px;
 }

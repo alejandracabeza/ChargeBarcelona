@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./../App.css";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
 
-function Map({ markers, search }, props) {
+function Map({ markers, search, selectedMarker, setSelectedMarker, displayList, setDisplayList }) {
+
 
   const [viewport, setViewport] = useState({
     longitude: 2.154007,
@@ -19,21 +20,36 @@ function Map({ markers, search }, props) {
 
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/alejandrapcabeza/cjzcj8g430ajf1cp0fr7odmz5"
+        mapStyle="mapbox://styles/alejandrapcabeza/cjzrhvf7539e21cpi9k78v35b"
         onViewportChange={viewport => {
           setViewport(viewport);
         }}
       >
-        {markers.map((marker) => {
-          let name = marker.ParkingName.toLowerCase()
-          if (name.includes(search)) {
-            return <Marker latitude={marker.Lat} longitude={marker.Lng}>
-              <div style={{ width: 10, height: 10, backgroundColor: "red" }} />
-            </Marker>
-          }
-        })
+
+        {
+          markers.map(function (marker, index) {
+            if (marker.ParkingName.toLowerCase().includes(search)) {
+
+              return <Marker key={index} latitude={marker.Lat} longitude={marker.Lng}>
+                <div className="eachMarker" onClick={e => {
+                  e.preventDefault();
+                  setSelectedMarker(marker);
+                }}></div>
+              </Marker>
+            }
+          })
         }
 
+        {selectedMarker && <Popup latitude={selectedMarker.Lat} longitude={selectedMarker.Lng} onClose={() => {
+          setSelectedMarker(null)
+        }}>
+          <div>
+            <h4>Name: {selectedMarker.ParkingName}</h4>
+            <p>Address: {selectedMarker.Address}</p>
+            <p>Parking Level: {selectedMarker.ParkingLevel}</p>
+
+          </div>
+        </Popup>}
       </ReactMapGL>
     </div>
   );
