@@ -10,7 +10,6 @@ function App() {
   let [selectedMarker, setSelectedMarker] = useState(null);
 
 
-
   async function fetchJSON() {
     try {
       const response = await fetch(
